@@ -125,7 +125,7 @@ frogs.extend(["Another 1", "More frogs", "final frog"])
 #     print(f'This frog is named {frog}')
 for idx, frog in enumerate(frogs):
     frogs[idx] = {'name': frog}
-    # print(f'This frog at index {idx} is named {frog}')
+    print(f'This frog at index {idx} is named {frog[1:5]}')
 
 # print(frogs)
 # for(let i = 0; i < frogs.length; i++) {
@@ -158,3 +158,36 @@ print(instructor.items())
 for key, value in instructor.items():
     print(f'{key} = {value}')
 
+# List comprehension is incredibly valuable and it looks nice
+
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# return the square of each number 
+def square(arr):
+    # squares = []
+    # for n in arr:
+    #     squares.append(n * n)
+    # return squares
+    # Multiply n by itself where each value in the arr is called n
+    return [num * num for num in arr]
+
+# Now only return even squares
+def even_squares(arr):
+    # For each number, I'm calling n, in this array, return an array with those numbers squared if the input is even
+    # What operation are you doing. What would you write for the for loop in Python. Then last but not least is are there any conditionals on this
+    even_squares = [n * n for n in arr if n % 2 == 0]
+    return even_squares
+
+print(square(numbers))
+print(even_squares(numbers))
+
+first_half = numbers[:(len(numbers)//2)]
+
+print(first_half)
+
+colors = "red", "yellow", "blue"
+print(colors)
+# colors[1] = "Orange" This is an error because tuples can't have values reassigned
+
+a, b, c = colors
+print(a, b, c)
