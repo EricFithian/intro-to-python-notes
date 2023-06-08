@@ -1,3 +1,5 @@
+from datetime import date
+
 class User:
     def __init__(self, first_name = "Eric", last_name = "F"):
         self.name = first_name + ' ' + last_name
@@ -97,6 +99,74 @@ class IPhone(Phone):
         else:
             return print("This phone is still locked. You can also enter your password")
 
-new_phone = IPhone(keyboard="Built in UI")
-print(new_phone.number)
-print(new_phone.keyboard)
+# new_phone = IPhone(keyboard="Built in UI")
+# print(new_phone.number)
+# print(new_phone.keyboard)
+
+
+# Creating accounts exercise: 
+# Could have imported datetime here
+class Account:
+    def __init__(self):
+        self.funds = 100
+        self.date_open = date.today()
+    
+    def deposit(self, amount):
+        # You could've just done it for any amount. I wanted to make sure it wasn't a negative amount
+        if amount < 0:
+            return print("That's not how this works. That's not how any of this works!")
+        else:
+            self.funds += amount
+            return print(f"You deposited ${amount} which brings your account balance to ${self.funds}")
+    
+    # I can only withdraw funds if the amount is available
+    def withdraw(self, amount):
+        if amount > self.funds:
+            return print("I'm not letting you borrow my money!")
+        else:
+            self.funds -= amount
+            return print(f"Your withdawl of ${amount} brings your account down to ${self.funds}")
+        
+    def __str__(self):
+        return f"General Account opened on {self.date_open} with ${self.funds} available"
+
+# Creating a savings account class that's a child of the account class. 
+class SavingsAccount(Account):
+    def __init__(self):
+        # Going to get the information the parent was initialized with. If you provided a default in the parent, you have to do the same in the child
+        super().__init__()
+        self.type = "Savings"
+        self.interest = 0.01
+
+    def add_interest(self):
+        self.funds *= (1 + self.interest)
+        return print(f"You gained 1% interest and your new balance is ${self.funds}")
+
+# my_account = Account()
+# print(my_account.funds)
+# my_account.withdraw(amount=50)
+# my_account.deposit(amount=40)
+# print(my_account)
+
+# my_savings_account = SavingsAccount()
+# print(my_savings_account)
+# print(my_savings_account.date_open)
+# print(my_savings_account.funds)
+# my_savings_account.add_interest()
+
+class Checking(Account):
+    def __init__(self):
+        # This is bringing in the date_opened and the funds from the parent class
+        super().__init__()
+        self.type = "Checking"
+        self.monthly_fee = 25
+    
+    def deduct_fee(self):
+        self.funds -= self.monthly_fee
+        return print(f"I'm deducting ${self.monthly_fee} for the montly fee bringing your balance to ${self.funds}")
+    
+my_checking_account = Checking()
+print(my_checking_account.date_open)
+my_checking_account.deduct_fee()
+# All of the methods that are available to the parent will also be available to all the children
+my_checking_account.withdraw(40)
